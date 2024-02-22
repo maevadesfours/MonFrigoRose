@@ -2,7 +2,7 @@
 import { reactive, onMounted } from "vue";
 import CompartimentItems from "./CompartimentItems.vue";
 import FrigoForm from "./FrigoForm.vue";
-import Rechercher from "./Rechercher.vue";
+import Rechercher from "./Recherche.vue";
 import Aliment from "../Aliments.js";
 
 
