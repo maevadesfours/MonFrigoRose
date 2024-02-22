@@ -2,9 +2,8 @@
 import { reactive, onMounted } from "vue";
 import CompartimentItems from "./CompartimentItems.vue";
 import FrigoForm from "./FrigoForm.vue";
-import Rechercher from "./Recherche.vue";
+import Recherche from "./Recherche.vue";
 import Aliment from "../Aliments.js";
-
 
 const listeC = reactive([]);
 
@@ -193,12 +192,12 @@ onMounted(() => {
 
 
 <template>
-  <h3>Frigo Partagee</h3>
+  <h3>Dans mon frigo : </h3>
   <div>
   <FrigoForm @addAliment="handlerAdd"></FrigoForm>
   <ul>  
    
-      <EtagereItem
+      <CompartimentItems
       v-for="aliment of listeC"
       :key="aliment.id"
       :aliment="aliment"
@@ -209,8 +208,8 @@ onMounted(() => {
   </ul>
 
 
-  <Rechercher @recherche="handlerRecherche"
-  :listeC="listeC"></Rechercher>
+  <Recherche @recherche="handlerRecherche"
+  :listeC="listeC"></Recherche>
  
 </div>
   </template>

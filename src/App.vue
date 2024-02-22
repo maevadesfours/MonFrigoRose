@@ -1,10 +1,11 @@
 <script setup>
   import MonFrigo from "./components/MonFrigo.vue";
+
 </script>
 
 <template>
   <div>
-    <Etagere/>
+    <MonFrigo/>
   </div>
 </template>
 

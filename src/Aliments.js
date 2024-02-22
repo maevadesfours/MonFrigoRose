@@ -32,4 +32,3 @@ export default class Aliment{
       return `--> ${this._id} (${this._nom} de quantitee:${this._qte})`;
     }
   }
-s
