@@ -11,9 +11,6 @@ const listeC = reactive([]);
 // -- l'url de l'API
 const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
 
-
-
-
 function handlerDelete(id) {
   console.log(id);
   const fetchOptions = {
