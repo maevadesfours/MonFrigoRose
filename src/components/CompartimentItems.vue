@@ -18,25 +18,18 @@ defineEmits(["supprimer","ajouterUn","enleverUn"])
                 </td>-->
     </li>
            
-       
-       
-</template>
 
+</template>
 
 <style>
 .aliment {
     width: 80%;
   }
 
-
-
-
   ul {
   /* afin de retirer les puces de la liste */
   list-style-type: none;
 }
-
-
     </style>
 
 

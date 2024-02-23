@@ -5,39 +5,44 @@ import FrigoForm from "./FrigoForm.vue";
 import Recherche from "./Recherche.vue";
 import Aliment from "../Aliments.js";
 
-const listeC = reactive([]);
+const lesAliments = reactive([])
 
-
-// -- l'url de l'API
+// URL de l'API
 const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
 
-function handlerDelete(id) {
-  console.log(id);
-  const fetchOptions = {
-    method: "DELETE",
-  };
-  // -- l'id de l'aliment à supprimer doit être ajouté à la fin de l'url
-  fetch(url + "/" + id, fetchOptions)
+function listerFrigo() {
+    let fetchOptions = {
+        method: "GET"
+    };
+    fetch(url, fetchOptions)
     .then((response) => {
-      return response.json();
+        return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
-      getTodos();
+        console.log(dataJSON);
+        let aliments = dataJSON
+        //mettre la liste à 0
+        listerFrigo.splice(0,listerFrigo.length) 
+        dataJSON.forEach((aliment) =>
+        listerFrigo.push(new Aliment(aliment.id, aliment.nom, aliment.qte, aliment.photo)))
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+        console.log(error);
+    })
 }
-
+onMounted(() => {
+        listerFrigo();
+    });
 
 
 
    function handlerAdd(nom, qte) {
   // -- il faut créer un nouvel aliment instance de la classe
 
-
   console.log(nom, qte);
  
   let photo = "https://webmmi.iut-tlse3.fr//~pecatte//frigo//public//images// "+nom;
+  
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -47,27 +52,41 @@ function handlerDelete(id) {
     headers: myHeaders,
     body: JSON.stringify({nom:nom, qte:qte, photo:photo}),
   };
+
   fetch(url, fetchOptions)
-    .then((response) => {
-      return response.json();
+    .then((reponse) => {
+      return reponse.json();
     })
     .then((dataJSON) => {
       console.log(dataJSON);
-      getTodos();
+      listerFrigo();
     })
     .catch((error) => console.log(error));
 }
 
 
-function handlerPlus(aliment) {
+function handlerDelete(id) {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const fetchOptions = {
+      method: "DELETE",
+      };
+
+    fetch(url + "/" + id, fetchOptions)
+    .then((reponse) => {
+        return reponse.json();
+    })
+    .then((dataJSON) => {
+      console.log(dataJSON);
+      listerFrigo();
+    })
+    .catch((error) => console.log(error));
+}
+
+
+function handlerPlusUn(aliment) {
   console.log(aliment);
-  let id = aliment.id;
-  let nom = aliment.nom;
-  let photo = aliment.photo;
-  aliment.qte=aliment.qte+1;
-  let qte = aliment.qte;
-
-
+  aliment.addAliment();
 
 
   let myHeaders = new Headers();
@@ -75,7 +94,7 @@ function handlerPlus(aliment) {
   const fetchOptions = {
     method: "PUT",
     headers : myHeaders,
-    body: JSON.stringify({id: id, nom: nom, qte: qte, photo:  photo}),
+    body: JSON.stringify(aliment),
   };
 
 
@@ -84,13 +103,14 @@ function handlerPlus(aliment) {
       return response.json();
     })
     .then((dataJSON) => {
-     getTodos();
+     listerFrigo();
   })
     .catch((error) => console.log(error));
 }
 
 
-function handlerMoins(aliment) {
+
+function handlerMoinsUn(aliment) {
   console.log(aliment);
   let id = aliment.id;
   let nom = aliment.nom;
@@ -195,23 +215,21 @@ onMounted(() => {
   <ul>  
    
       <CompartimentItems
-      v-for="aliment of listeC"
+      v-for="aliment of lesAliments"
       :key="aliment.id"
       :aliment="aliment"
       @supprimer="handlerDelete"
-      @ajouterUn="handlerPlus"
-      @enleverUn="handlerMoins"/>
+      @ajouterUn="handlerPlusUn"
+      @enleverUn="handlerMoinsUn"/>
  
   </ul>
 
 
   <Recherche @recherche="handlerRecherche"
-  :listeC="listeC"></Recherche>
+  :lesAliments="lesAliments"></Recherche>
  
 </div>
   </template>
-
-
 
 
 <style scoped>
