@@ -1,236 +1,42 @@
-<script setup>
-import { reactive, onMounted } from "vue";
-import CompartimentItems from "./CompartimentItems.vue";
-import FrigoForm from "./FrigoForm.vue";
-import Recherche from "./Recherche.vue";
-import Aliment from "../Aliments.js";
-
-const lesAliments = reactive([])
-
-// URL de l'API
-const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
-
-function listerFrigo() {
-    let fetchOptions = {
-        method: "GET"
-    };
-    fetch(url, fetchOptions)
-    .then((response) => {
-        return response.json();
-    })
-    .then((dataJSON) => {
-        console.log(dataJSON);
-        let aliments = dataJSON
-        //mettre la liste à 0
-        listerFrigo.splice(0,listerFrigo.length) 
-        dataJSON.forEach((aliment) =>
-        listerFrigo.push(new Aliment(aliment.id, aliment.nom, aliment.qte, aliment.photo)))
-    })
-    .catch((error) => {
-        console.log(error);
-    })
-}
-onMounted(() => {
-        listerFrigo();
-    });
-
-
-
-   function handlerAdd(nom, qte) {
-  // -- il faut créer un nouvel aliment instance de la classe
-
-  console.log(nom, qte);
- 
-  let photo = "https://webmmi.iut-tlse3.fr//~pecatte//frigo//public//images// "+nom;
-  
-  let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-
-  const fetchOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: JSON.stringify({nom:nom, qte:qte, photo:photo}),
-  };
-
-  fetch(url, fetchOptions)
-    .then((reponse) => {
-      return reponse.json();
-    })
-    .then((dataJSON) => {
-      console.log(dataJSON);
-      listerFrigo();
-    })
-    .catch((error) => console.log(error));
-}
-
-
-function handlerDelete(id) {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const fetchOptions = {
-      method: "DELETE",
-      };
-
-    fetch(url + "/" + id, fetchOptions)
-    .then((reponse) => {
-        return reponse.json();
-    })
-    .then((dataJSON) => {
-      console.log(dataJSON);
-      listerFrigo();
-    })
-    .catch((error) => console.log(error));
-}
-
-
-function handlerPlusUn(aliment) {
-  console.log(aliment);
-  aliment.addAliment();
-
-
-  let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  const fetchOptions = {
-    method: "PUT",
-    headers : myHeaders,
-    body: JSON.stringify(aliment),
-  };
-
-
-  fetch(url , fetchOptions)
-    .then((response) => {
-      return response.json();
-    })
-    .then((dataJSON) => {
-     listerFrigo();
-  })
-    .catch((error) => console.log(error));
-}
-
-
-
-function handlerMoinsUn(aliment) {
-  console.log(aliment);
-  let id = aliment.id;
-  let nom = aliment.nom;
-  let photo = aliment.photo;
-
-
-  if(aliment.qte>0){aliment.qte=aliment.qte-1;}
- 
-  let qte = aliment.qte;
-
-
-
-
-  let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-
-  if(qte==0){handlerDelete(id)}
- 
-  const fetchOptions = {
-    method: "PUT",
-    headers : myHeaders,
-    body: JSON.stringify({id: id, nom: nom, qte: qte, photo:  photo}),
-  };
-
-
-  fetch(url , fetchOptions)
-    .then((response) => {
-      return response.json();
-    })
-    .then((dataJSON) => {
-     getTodos();
-  })
-    .catch((error) => console.log(error));
-}
-
-
-
-
-function handlerRecherche(mot){
-    const urlPers = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits?search=";
-    let fetchOptions = { method: "GET" };
-
-
-    fetch(urlPers+mot, fetchOptions)
-    .then((response) => {
-        return response.json();
-    })
-    .then((dataJSON) => {
-        let aliments = dataJSON.results; // les aliments sont le tableau "results"
-        let resHTML = ""; // variable pour contenir le html généré
-
-
-         // boucle sur le tableau
-      for (let a of aliments) {
-        resHTML =
-         resHTML + "<option>" + a.nom;
-      }
-         // insérer le HTML dans la liste <ul></ul> du fichier index.html
-         document.getElementById("listeAliment").innerHTML = resHTML;
-    })
-    .catch((error) => {
-            // gestion des erreurs
-            console.log(error);
-   });
-  }
-
-
-function getTodos() {
-  const fetchOptions = { method: "GET" };
-  fetch(url, fetchOptions)
-    .then((response) => {
-      return response.json();
-    })
-    .then((dataJSON) => {
-      console.log(dataJSON);
-      // -- vider la liste des choses
-      listeC.splice(0, listeC.length);
-      // pour chaque donnée renvoyée par l'API
-      //  créer un objet instance de la classe Chose
-      //  et l'ajouter dans la liste listeC
-      dataJSON.forEach((v) => listeC.push(new Aliment(v.id, v.nom, v.qte, v.photo)));
-    })
-    .catch((error) => console.log(error));
-}
-
-
-onMounted(() => {
-  getTodos();
-});
-
-
-</script>
-
-
-
-
 <template>
-  <h3>Dans mon frigo : </h3>
-  <div>
-  <FrigoForm @addAliment="handlerAdd"></FrigoForm>
-  <ul>  
-   
-      <CompartimentItems
-      v-for="aliment of lesAliments"
-      :key="aliment.id"
-      :aliment="aliment"
-      @supprimer="handlerDelete"
-      @ajouterUn="handlerPlusUn"
-      @enleverUn="handlerMoinsUn"/>
- 
-  </ul>
-
-
-  <Recherche @recherche="handlerRecherche"
-  :lesAliments="lesAliments"></Recherche>
- 
-</div>
-  </template>
-
-
+  <div class="header">
+    <div class="title">
+      <h1>Mon frigo</h1>
+      <p>Un petit creux? Découvrez ce que votre frigo contient</p>
+    </div>
+  </div>
+</template>
+  
 <style scoped>
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.title {
+  background: rgba(27, 28, 31, 0.9);
+  border-radius: 50px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: bisque;
+  text-align: center;
+}
+
+
+@keyframes go-down {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0.2;
+    filter: blur(5px)
+  }
+}
+
+.title:hover {
+  animation: go-down 3s ease-in-out infinite alternate;
+}
 </style>

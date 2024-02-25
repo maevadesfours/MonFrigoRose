@@ -1,35 +1,50 @@
 <script setup>
-import { defineEmits, defineProps } from "vue";
 defineProps(["aliment"]);
-defineEmits(["supprimer","ajouterUn","enleverUn"])
+defineEmits(["deleteA", "searchA", "moreA", "lessA"])
 </script>
 
 
 <template>
-       
-  <li>
-        <button @click="$emit('ajouterUn', aliment)">+</button>
-        <button @click="$emit('enleverUn', aliment)">-</button>
-        <button @click="$emit('supprimer', aliment.id)">Supprimer</button>
-        {{ aliment.pourAfficher() }}
-             
-               <!--<td>
-                    <button @click="$emit('ajouter', aliment.id)">plus</button>
-                </td>-->
-    </li>
-           
-
+        <div class="show">
+            {{ aliment.afficherNom() }}
+            {{ aliment.afficherQte() }}<br>
+            <img :src="aliment.photo" style="width: 100px; height: 100px;" />
+        </div>
+        <div class="feat">
+            <button @click="$emit('deleteA', aliment.id)" class="button">
+                <img id="delete" src="./icons/delete.png" alt="Bouton Supprimer">
+            </button>
+            <button @click="$emit('lessA', aliment)" class="button">
+                <img id="less" src="./icons/less.png" alt="Bouton Moins">
+            </button>
+            <button @click="$emit('moreA', aliment)" class="button">
+                <img id="more" src="./icons/more.png" alt="Bouton Plus">
+            </button>
+        </div>
 </template>
 
-<style>
-.aliment {
-    width: 80%;
-  }
-
-  ul {
-  /* afin de retirer les puces de la liste */
-  list-style-type: none;
+<style scoped>
+.show {
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
 }
-    </style>
+
+#delete, #more, #less {
+    width: 20px;
+    height: 20px;
+}
+
+#delete:hover, #more:hover, #less:hover {
+  transform: scale(1.25); 
+}
+.button {
+    border: none;
+    background: none; 
+    cursor: pointer;
+    padding: 0; 
+    margin-left:8px;
+}
+</style>
+
 
 

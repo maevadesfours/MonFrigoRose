@@ -1,10 +1,10 @@
-// une chose
 export default class Aliment{
     constructor(id, nom, qte, photo) {
       this._id = id;
       this._nom = nom;
       this._qte = qte;
       this._photo = photo;    }
+    
     get id() {
       return this._id;
     }
@@ -12,23 +12,34 @@ export default class Aliment{
       return this._nom;
     }
 
-
     get qte() {
       return this._qte;
     }
-
 
     get photo() {
       return this._photo;
     }
 
-
-    // modifier la quantitee
-    set qte(qte) {
-      this._qte = qte;
+    set nom(nom) {
+      this._nom = nom;
     }
-   
-    pourAfficher() {
-      return `--> ${this._id} (${this._nom} de quantitee:${this._qte})`;
+
+    set qte(qte) {
+        this._qte = qte;
+    }
+    
+    enleverStock() {
+        this._qte--;
+    }
+    augmenterStock() {
+        this._qte++;
+    }
+
+    afficherNom() {
+      return `Aliment: ${this._nom} |`;
+    }
+  
+    afficherQte() {
+      return `Quantité : ${this._qte}`;
     }
   }
