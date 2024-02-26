@@ -60,6 +60,7 @@ body {
   background-position: left;
   background-color: rgb(250, 250, 250);
   width: 100vw;
+
   padding-bottom: 500px;
 }
 

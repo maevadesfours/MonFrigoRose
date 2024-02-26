@@ -5,24 +5,19 @@ const photo = ref("");
 const nom = ref("");
 const qte = ref("");
 
-defineEmits(["addA"]);
+defineEmits(["ajout"]);
 
 </script>
 
-
 <template>
   <body class="saisie">
-    <h4>Ajouter un aliment au frigo: </h4>
-    <form @submit.prevent="$emit('addA', nom, qte, photo)" class="formInput">
-      <div class="input">
-        <input class="inputA" type="text" v-model="nom" placeholder="Aliment ?"/> 
-        <input class="inputQ" type="text" v-model="qte" placeholder="Quantité ?"/> 
-        <input class="inputP" type="text" v-model="photo" placeholder="Photo ?" title="Ajouter un lien vers une photo pour un meilleur visuel!" />
+    <h4>Ajouter dans mon frigo: </h4>
+    <form @submit.prevent="$emit('ajout', nom, qte)" class="saisieFormulaire">
+      <div class="entrer">
+        <input class="ajoutAliment" type="text" v-model="nom" placeholder="Nouvel aliment"/> 
+        <input class="ajoutQt" type="text" v-model="qt" placeholder="Quantité"/> 
       </div>
-      <!-- Bouton Valider -->
-      <button class="send" type="submit"> 
-        <img id ="valider" src="./icons/send.png" alt="Bouton Valider">
-      </button>
+      <button class="send" type="submit"> Valider </button>
     </form>
   </body>
 </template>
@@ -31,8 +26,8 @@ defineEmits(["addA"]);
 <style scoped>
 
 .saisie{
-  margin-left: 25px;
-  background-color: rgba(247, 137, 194, 0.025);
+  margin: 20px;
+  background-color: rgba(238, 130, 186, 0.025);
 }
 
 .formInput{
@@ -72,6 +67,4 @@ defineEmits(["addA"]);
   width: 50px;
   height: 50px; 
 }
-
-
 </style>

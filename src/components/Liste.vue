@@ -6,7 +6,7 @@ import Aliment from "../Aliments.js";
 import Recherche from "./recherche.vue";
 import monFrigo from "./monFrigo.vue";
 
-const lesAliments = reactive([])
+const mesAliments = reactive([])
 
 // URL de l'API
 const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
@@ -190,7 +190,7 @@ function handlerRecherche(mot){
   <ul>  
    
       <CompartimentItems
-      v-for="aliment of lesAliments"
+      v-for="aliment of mesAliments"
       :key="aliment.id"
       :aliment="aliment"
       @supprimer="handlerDelete"
@@ -201,7 +201,7 @@ function handlerRecherche(mot){
 
 
   <Recherche @recherche="handlerRecherche"
-  :lesAliments="lesAliments"></Recherche>
+  :mesAliments="mesAliments"></Recherche>
  
 </div>
 </template>
@@ -224,7 +224,7 @@ function handlerRecherche(mot){
   padding-bottom: 7px;
   width: 50%;
   height: 100%;
-  background: rgba(129, 186, 189, 0.8);
+  background: rgba(238, 130, 186, 0.025);
   border-radius: 50px;
   text-align: center;
   padding-bottom: 20px;
@@ -235,12 +235,9 @@ function handlerRecherche(mot){
   bottom: 0;
   left: 10px;
   width: 400px;
-  background: rgb(130, 177, 177);
+  background: rgba(238, 130, 186, 0.025);
   border-radius: 60px;
   text-align: center;
 }
-
-
-
 
 </style>

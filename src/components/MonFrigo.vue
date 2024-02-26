@@ -11,15 +11,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
   
   .title {
-    margin-top:10vh;
-    margin-left:40vw;
+    margin-top: 10vh;
+    margin-left: 40vw;
     font-family: Calibri;
     font-size: small;
     color: black;
-    text-align: justify;
-  }
-  
+}
   </style>
