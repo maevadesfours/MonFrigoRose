@@ -1,9 +1,5 @@
 <script setup>
-//import CompartimentItems from "./components/CompartimentItems.vue";
-//import FrigoForm from "./components/CompartimentItems.vue";
-//import Recherche from "./components/Recherche.vue";
-import frigoFooter from "./components/frigoFooter.vue"
-import Liste from "./components/Liste.vue";
+import fonction from "./components/fonction.vue";
 import monFrigo from "./components/monFrigo.vue";
 
 const scrollToFeatures = () => {
@@ -24,7 +20,7 @@ const scrollToFeatures = () => {
       </div>
     </div>
     <div class="features">
-      <Liste />
+      <fonction />
     </div>
   </body>
 </template>
@@ -60,7 +56,6 @@ body {
   background-position: left;
   background-color: rgb(250, 250, 250);
   width: 100vw;
-
   padding-bottom: 500px;
 }
 

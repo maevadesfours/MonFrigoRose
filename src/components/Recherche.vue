@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-defineProps(["listeC"]);
-// -- donnée réactive pour la saisie du libellé
+defineProps(["mesAliments"]);
+
 const motsCle = ref("");
 const emit = defineEmits(["recherche"]);
 </script>
@@ -17,7 +17,7 @@ const emit = defineEmits(["recherche"]);
   </form>
   <select id="listeAliment"></select>
   <!--<select>
-        <option v-for="aliment in listeC" :key="aliment" :value="aliment">{{ aliment.nom }}</option>
+        <option v-for="aliment in mesAliments" :key="aliment" :value="aliment">{{ aliment.nom }}</option>
       </select>
       -->
 </template>

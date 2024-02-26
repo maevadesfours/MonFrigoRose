@@ -22,7 +22,6 @@ function handlerSubmit(){
         <input class="ajoutAliment" type="text" v-model="nom" placeholder="Nouvel aliment"/> 
         <input class="ajoutQt" type="text" v-model="qte" placeholder="Quantité"/> 
       </div>
-    
       <input classe="button" type="submit" value = "Valider"/>
     </form>
   </body>
@@ -33,7 +32,6 @@ function handlerSubmit(){
 
 .saisie{
   margin: 20px;
-  background-color: rgba(238, 130, 186, 0.025);
 }
 
 .saisieFormulaire{
@@ -47,14 +45,14 @@ function handlerSubmit(){
 }
 
 .ajoutAliment, .ajoutQt {
-  border: pink;
-  background-color: rgb(247, 137, 194, 0.025);
-  padding-top: 15px;
+  border: black;
+  background-color: pink;
+  padding-top: 5px;
   width: 150px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
-.send {
+.button {
   border: black;
   padding: 10px;
   background: green;

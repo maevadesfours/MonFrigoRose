@@ -1,10 +1,9 @@
 <script setup>
 import { reactive, onMounted } from "vue";
-import CompartimentItems from "./CompartimentItems.vue";
+import FrigoItems from "./FrigoItems.vue";
 import FrigoForm from "./FrigoForm.vue";
 import Aliment from "../Aliments.js";
 import Recherche from "./recherche.vue";
-import monFrigo from "./monFrigo.vue";
 
 const mesAliments = reactive([])
 
@@ -35,7 +34,7 @@ onMounted(() => {
 
 
 
-   function handlerAdd(nom, qt) {
+  function handlerAdd(nom, qt) {
   console.log(nom, qt);
   let photo = "https://webmmi.iut-tlse3.fr//~pecatte//frigo//public//images// "+nom;
   
@@ -145,8 +144,7 @@ function handlerRecherche(mot){
 
          // boucle sur le tableau
       for (let a of aliments) {
-        resHTML =
-         resHTML + "<option>" + a.nom;
+        resHTML = resHTML + "<option>" + a.nom;
       }
          // insérer le HTML dans la liste <ul></ul> du fichier index.html
          document.getElementById("listeAliment").innerHTML = resHTML;
@@ -167,7 +165,7 @@ function handlerRecherche(mot){
   <FrigoForm @ajout="handlerAdd"></FrigoForm>
   <ul>  
    
-      <CompartimentItems
+      <FrigoItems
       v-for="aliment of mesAliments"
       :key="aliment.id"
       :aliment="aliment"
