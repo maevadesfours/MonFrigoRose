@@ -2,8 +2,8 @@
 import { reactive, onMounted } from "vue";
 import CompartimentItems from "./CompartimentItems.vue";
 import FrigoForm from "./FrigoForm.vue";
-import Recherche from "./Recherche.vue";
 import Aliment from "../Aliments.js";
+import Recherche from "./recherche.vue";
 import monFrigo from "./monFrigo.vue";
 
 const lesAliments = reactive([])
@@ -185,7 +185,6 @@ function handlerRecherche(mot){
 
 
 <template>
-  <h3 class="frigoTitle">Dans mon frigo : </h3>
   <div class="item">
   <FrigoForm @addAliment="handlerAdd"></FrigoForm>
   <ul>  
@@ -242,18 +241,6 @@ function handlerRecherche(mot){
 }
 
 
-@keyframes fondre {
-  0% {
-    transform: scaleY(1);
-  }
-  25% {
-    transform: scaleY(0.8) skewY(5deg);
-    color: orange;
-  }
-  50% {
-    transform: scaleY(1.2) skewY(-5deg);
-    color: rgb(159, 202, 204);
-  }
-}
+
 
 </style>

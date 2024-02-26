@@ -1,14 +1,14 @@
 <script setup>
 //import CompartimentItems from "./components/CompartimentItems.vue";
 //import FrigoForm from "./components/CompartimentItems.vue";
-import Liste from "./components/Liste.vue";
-import monFrigo from "./components/monFrigo.vue";
 //import Recherche from "./components/Recherche.vue";
 import frigoFooter from "./components/frigoFooter.vue"
+import Liste from "./components/Liste.vue";
+import monFrigo from "./components/monFrigo.vue";
 
 const scrollToFeatures = () => {
   const featuresElement = document.querySelector(".features");
-  featuresElement.scrollIntoView({ behavior: 'smooth' });
+  featuresElement.scrollIntoView({ behavior: 'instant' });
 };
 
 </script>
@@ -16,18 +16,15 @@ const scrollToFeatures = () => {
 <template>
   <body>
     <div class="header">
-      <frigoHeader />
+      <monFrigo />
       <div class="scroll">
         <button class="fonction" @click="scrollToFeatures">
-          <img id="click" src="./components/icons/click.png" title="Découvrez toutes les fonctionalités!">
+          <img id="click" src="./components/icons/Click.png">
         </button>
       </div>
     </div>
     <div class="features">
-      <frigo />
-    </div>
-    <div class="footer">
-      <frigoFooter />
+      <Liste />
     </div>
   </body>
 </template>
@@ -35,73 +32,35 @@ const scrollToFeatures = () => {
 
 <style>
 body {
-  margin: auto;
-  background-color: rgb(50, 50, 50);
-  font-family: Arial, sans-serif;
+  margin: center;
 }
 
 
 .header {
-  background-image: url('components/icons/kitchen.jpg');
+  background-image: url('components/icons/page_accueil.jpg');
   background-size: cover;
   width: 100%;
   height: 110vh;
   background-position: center;
 }
 
-
 .scroll {
-  margin-top: -33vh;
-  margin-left: 14vw;
+  margin-top: -53vh;
+  margin-left: 63vw;
 }
 
 
 #click {
-  width: 8vw;
+  width: 15vw;
 }
-
-
-.fonction {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  animation: moveUpDown 2s ease-in-out infinite;
-}
-
 
 .features {
-  margin: 0px;
-  background-image: url('components/icons/fridge2.jpg');
-  background-repeat: no-repeat;
+  margin: center;
+  background-image: url('components/icons/frigo_ouvert.jpg');
   background-position: left;
-  background-color: rgb(159, 202, 204);
-  height: 180%;
+  background-color: rgb(250, 250, 250);
   width: 100vw;
-  transition: background-image 0.5s ease-in-out;
-  padding-bottom: 10px;
-}
-
-
-.features:hover {
-  background-image: url('components/icons/fridge.jpg');
-  background-size: auto;
-  background-color: rgb(159, 202, 204);
-}
-
-
-@keyframes moveUpDown {
-  0% {
-    transform: translateY(-10px);
-  }
-
-  50% {
-    transform: translateY(10px);
-  }
-
-  100% {
-    transform: translateY(-10px);
-  }
+  padding-bottom: 500px;
 }
 
 </style>

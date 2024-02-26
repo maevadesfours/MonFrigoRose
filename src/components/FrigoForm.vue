@@ -1,15 +1,17 @@
 <script setup>
 import { ref } from "vue";
-// -- donnée réactive pour la saisie du libellé
+
+const photo = ref("");
 const nom = ref("");
 const qte = ref("");
-const photo = ref("");
+
 defineEmits(["addA"]);
+
 </script>
 
 
 <template>
-  <body class="form">
+  <body class="saisie">
     <h4>Ajouter un aliment au frigo: </h4>
     <form @submit.prevent="$emit('addA', nom, qte, photo)" class="formInput">
       <div class="input">
@@ -28,9 +30,9 @@ defineEmits(["addA"]);
 
 <style scoped>
 
-.form{
+.saisie{
   margin-left: 25px;
-  background-color: rgba(108, 154, 156, 0.025);
+  background-color: rgba(247, 137, 194, 0.025);
 }
 
 .formInput{
@@ -46,8 +48,8 @@ defineEmits(["addA"]);
 
 .inputA, .inputQ, .inputP {
   border: none;
-  border-bottom: 5px solid steelblue;
-  background-color: rgb(159, 202, 204);
+
+  background-color: rgb(247, 137, 194, 0.025);
   background-image: url('icons/food.png');
   background-size: 20%;
   background-position: right;
@@ -71,12 +73,5 @@ defineEmits(["addA"]);
   height: 50px; 
 }
 
-.send:hover {
-  transform: scale(1.2); 
-}
-
-.inputA:hover, .inputQ:hover, .inputP:hover {
-  transform: scale(1.1); 
-}
 
 </style>
