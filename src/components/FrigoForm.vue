@@ -1,23 +1,29 @@
 <script setup>
-import { ref } from "vue";
+import {defineEmits, ref } from "vue";
 
-const photo = ref("");
 const nom = ref("");
 const qte = ref("");
 
-defineEmits(["ajout"]);
+const emit = defineEmits(["ajout"]);
+//nom.value ="";
 
+function handlerSubmit(){
+  emit ('ajout', nom.value, qte.value);
+  nom.value ="";
+  qte.value="";
+}
 </script>
 
 <template>
   <body class="saisie">
     <h4>Ajouter dans mon frigo: </h4>
-    <form @submit.prevent="$emit('ajout', nom, qte)" class="saisieFormulaire">
+    <form @submit.prevent="handlerSubmit">
       <div class="entrer">
         <input class="ajoutAliment" type="text" v-model="nom" placeholder="Nouvel aliment"/> 
-        <input class="ajoutQt" type="text" v-model="qt" placeholder="Quantité"/> 
+        <input class="ajoutQt" type="text" v-model="qte" placeholder="Quantité"/> 
       </div>
-      <button class="send" type="submit"> Valider </button>
+    
+      <input classe="button" type="submit" value = "Valider"/>
     </form>
   </body>
 </template>
@@ -30,41 +36,31 @@ defineEmits(["ajout"]);
   background-color: rgba(238, 130, 186, 0.025);
 }
 
-.formInput{
-  padding-left: 40px;
+.saisieFormulaire{
+  padding-left: 60px;
   display: flex;
   justify-content: center;
 }
 
-.input{
-  display: flex;
-  flex-direction: column;
+.entrer{
+  display: center;
 }
 
-.inputA, .inputQ, .inputP {
-  border: none;
-
+.ajoutAliment, .ajoutQt {
+  border: pink;
   background-color: rgb(247, 137, 194, 0.025);
-  background-image: url('icons/food.png');
-  background-size: 20%;
-  background-position: right;
-  background-repeat: no-repeat;
   padding-top: 15px;
   width: 150px;
   border-radius: 10px;
-  margin-bottom: 10px;
 }
 
 .send {
-  border: none;
-  padding: 15px;
-  background: none;
+  border: black;
+  padding: 10px;
+  background: green;
   cursor: pointer;
-  align-self: flex; 
+  align-self: center; 
+  border-radius: 10px;
 }
 
-#valider {
-  width: 50px;
-  height: 50px; 
-}
 </style>

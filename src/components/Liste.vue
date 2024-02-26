@@ -12,7 +12,7 @@ const mesAliments = reactive([])
 const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
 
 function listerFrigo() {
-    let fetchOptions = {
+    const fetchOptions = {
         method: "GET"
     };
     fetch(url, fetchOptions)
@@ -21,11 +21,9 @@ function listerFrigo() {
     })
     .then((dataJSON) => {
         console.log(dataJSON);
-        let aliments = dataJSON
-        //mettre la liste à 0
-        listerFrigo.splice(0,listerFrigo.length) 
+        mesAliments.splice(0,mesAliments.length) 
         dataJSON.forEach((aliment) =>
-        listerFrigo.push(new Aliment(aliment.id, aliment.nom, aliment.qte, aliment.photo)))
+        mesAliments.push(new Aliment(aliment.id, aliment.nom, aliment.qte, aliment.photo)))
     })
     .catch((error) => {
         console.log(error);
@@ -37,21 +35,17 @@ onMounted(() => {
 
 
 
-   function handlerAdd(nom, qte) {
-  // -- il faut créer un nouvel aliment instance de la classe
-
-  console.log(nom, qte);
- 
+   function handlerAdd(nom, qt) {
+  console.log(nom, qt);
   let photo = "https://webmmi.iut-tlse3.fr//~pecatte//frigo//public//images// "+nom;
   
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-
   const fetchOptions = {
     method: "POST",
     headers: myHeaders,
-    body: JSON.stringify({nom:nom, qte:qte, photo:photo}),
+    body: JSON.stringify({nom:nom, qte:qt, photo:photo}),
   };
 
   fetch(url, fetchOptions)
@@ -67,15 +61,14 @@ onMounted(() => {
 
 
 function handlerDelete(id) {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const fetchOptions = {
-      method: "DELETE",
-      };
 
-    fetch(url + "/" + id, fetchOptions)
+  const fetchOptions = {
+    method: "DELETE",
+  };
+
+  fetch(url+"/"+id, fetchOptions)
     .then((reponse) => {
-        return reponse.json();
+      return reponse.json();
     })
     .then((dataJSON) => {
       console.log(dataJSON);
@@ -85,9 +78,9 @@ function handlerDelete(id) {
 }
 
 
-function handlerPlusUn(aliment) {
+function handlerAjouterUn(aliment) {
   console.log(aliment);
-  aliment.addAliment();
+  aliment.plus();
 
 
   let myHeaders = new Headers();
@@ -109,32 +102,19 @@ function handlerPlusUn(aliment) {
     .catch((error) => console.log(error));
 }
 
-
-
-function handlerMoinsUn(aliment) {
+function handlerEnleverUn(aliment) {
   console.log(aliment);
-  let id = aliment.id;
-  let nom = aliment.nom;
-  let photo = aliment.photo;
-
-
-  if(aliment.qte>0){aliment.qte=aliment.qte-1;}
- 
-  let qte = aliment.qte;
-
-
+  aliment.moins();
 
 
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-
-  if(qte==0){handlerDelete(id)}
- 
+  if(aliment.qte==0){handlerDelete(id)}
   const fetchOptions = {
     method: "PUT",
     headers : myHeaders,
-    body: JSON.stringify({id: id, nom: nom, qte: qte, photo:  photo}),
+    body: JSON.stringify(aliment),
   };
 
 
@@ -143,13 +123,11 @@ function handlerMoinsUn(aliment) {
       return response.json();
     })
     .then((dataJSON) => {
-     getTodos();
+     listerFrigo();
   })
     .catch((error) => console.log(error));
 }
-
-
-
+  
 
 function handlerRecherche(mot){
     const urlPers = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits?search=";
@@ -186,7 +164,7 @@ function handlerRecherche(mot){
 
 <template>
   <div class="item">
-  <FrigoForm @addAliment="handlerAdd"></FrigoForm>
+  <FrigoForm @ajout="handlerAdd"></FrigoForm>
   <ul>  
    
       <CompartimentItems
@@ -194,8 +172,8 @@ function handlerRecherche(mot){
       :key="aliment.id"
       :aliment="aliment"
       @supprimer="handlerDelete"
-      @ajouterUn="handlerPlusUn"
-      @enleverUn="handlerMoinsUn"/>
+      @ajouter="handlerAjouterUn"
+      @enlever="handlerEnleverUn"/>
  
   </ul>
 
@@ -213,9 +191,6 @@ function handlerRecherche(mot){
   left: 20vw;
 }
 
-.frigoTitle:hover {
-  animation: fondre 5s ease-in-out infinite;
-}
 
 .item {
   margin-left: auto;

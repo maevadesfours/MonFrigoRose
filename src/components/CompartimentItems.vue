@@ -1,6 +1,6 @@
 <script setup>
 defineProps(["aliment"]);
-defineEmits(["deleteA", "searchA", "moreA", "lessA"])
+defineEmits(["supprimer", "ajouter", "enlever"])
 </script>
 
 
@@ -8,18 +8,11 @@ defineEmits(["deleteA", "searchA", "moreA", "lessA"])
         <div class="show">
             {{ aliment.afficherNom() }}
             {{ aliment.afficherQte() }}<br>
-            <img :src="aliment.photo" style="width: 100px; height: 100px;" />
         </div>
         <div class="feat">
-            <button @click="$emit('deleteA', aliment.id)" class="button">
-                <img id="delete" src="./icons/delete.png" alt="Bouton Supprimer">
-            </button>
-            <button @click="$emit('lessA', aliment)" class="button">
-                <img id="less" src="./icons/less.png" alt="Bouton Moins">
-            </button>
-            <button @click="$emit('moreA', aliment)" class="button">
-                <img id="more" src="./icons/more.png" alt="Bouton Plus">
-            </button>
+            <button @click="$emit('supprimer', aliment.id)" class="button">Supprimer</button>
+            <button @click="$emit('enlever', aliment)" class="button">Moins</button>
+            <button @click="$emit('ajouter', aliment)" class="button">Plus</button>
         </div>
 </template>
 

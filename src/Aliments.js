@@ -28,10 +28,10 @@ export default class Aliment{
         this._qte = qte;
     }
     
-    enleverStock() {
+    moins() {
         this._qte--;
     }
-    augmenterStock() {
+    plus() {
         this._qte++;
     }
 
