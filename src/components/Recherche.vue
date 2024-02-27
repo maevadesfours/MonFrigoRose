@@ -43,4 +43,11 @@ const emit = defineEmits(["recherche"]);
     margin-top: 5vh;
 }
 
+#recherche{
+  position: relative;
+
+  margin-top: -50vh;
+  margin-left: 70vh;
+  width: 200px;
+}
 </style>

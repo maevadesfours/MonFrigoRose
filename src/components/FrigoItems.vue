@@ -24,12 +24,6 @@ defineEmits(["supprimer", "ajouter", "enlever"])
     margin-top: 10px;
 }
 
-#supprimer, #ajouter, #enlever {
-    width: 20px;
-    height: 20px;
-   
-}
-
 .button {
     margin-left:15px;
     border: black;

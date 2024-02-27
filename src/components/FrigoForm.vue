@@ -5,7 +5,6 @@ const nom = ref("");
 const qte = ref("");
 
 const emit = defineEmits(["ajout"]);
-//nom.value ="";
 
 function handlerSubmit(){
   emit ('ajout', nom.value, qte.value);
@@ -38,12 +37,9 @@ function handlerSubmit(){
     font-size: bottom;
     color: black;
 }
-
-
 .entrer{
   display: center;
 }
-
 .ajoutAliment, .ajoutQt {
   border: black;
   background-color: pink;

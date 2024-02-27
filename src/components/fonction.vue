@@ -6,7 +6,6 @@ import Aliment from "../Aliments.js";
 import Recherche from "./recherche.vue";
 
 const mesAliments = reactive([])
-const AlimentsR = reactive([])
 
 // URL de l'API
 const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
@@ -129,7 +128,6 @@ function handlerEnleverUn(aliment) {
 }
   
 function handlerRecherche(motcle){
-  /* on récupère le mot clé nécessaire à la recherche */
   const fetchOptions = { method: "GET" };
 
   fetch(url + "?search=" + motcle, fetchOptions)
@@ -139,25 +137,22 @@ function handlerRecherche(motcle){
     .then((dataJSON) => {
       console.log(dataJSON);
       let alimentsTrouves = dataJSON;
-      document.getElementById("recherche").innerHTML += "";
+      document.getElementById("recherche").innerHTML = "";
       document.getElementById("recherche").innerHTML += "<ul>";
-      /* on insère de l'html pour créer une liste de livre correspondant au critère*/
+        
       for (let l of alimentsTrouves) {
-        /* pour chaque livres, on récupère ses attributs et on l'incère dans l'html */
+        
         document.getElementById("recherche").innerHTML +=
-          "<li>" +
+         
           l.nom +
-          " qt " +
-          l.qte +
-          "</li>";
+          "--> Quantité: " +
+          l.qte + "<br>";
       }
-      /* on oublie pas de fermer la liste */
+      
       document.getElementById("recherche").innerHTML += "</ul>";
     })
     .catch((error) => console.log(error));
 }
-
-
 </script>
 
 
@@ -179,7 +174,6 @@ function handlerRecherche(motcle){
  
 </div>
 </template>
-
 <style scoped>
 
 .lesFonctions {
@@ -191,7 +185,6 @@ function handlerRecherche(motcle){
   border-radius: 50px;
   text-align: center;
 
-  
   background-color: rgba(255, 255, 255, 0.8);
   
   border: 1px solid black;
