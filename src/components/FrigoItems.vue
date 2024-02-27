@@ -9,7 +9,7 @@ defineEmits(["supprimer", "ajouter", "enlever"])
             {{ aliment.afficherNom() }}
             {{ aliment.afficherQte() }}<br>
         </div>
-        <div class="boutons">
+        <div>
             <button @click="$emit('supprimer', aliment.id)" class="button">Supprimer</button>
             <button @click="$emit('enlever', aliment)" class="button">Moins</button>
             <button @click="$emit('ajouter', aliment)" class="button">Plus</button>

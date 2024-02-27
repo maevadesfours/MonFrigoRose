@@ -41,13 +41,12 @@ body {
 }
 
 .scroll {
-  margin-top: -53vh;
-  margin-left: 63vw;
+  margin-top: -6vh;
+  margin-left: 61vw;
 }
 
-
 #click {
-  width: 15vw;
+  width: 20vw; 
 }
 
 .features {
@@ -57,6 +56,6 @@ body {
   background-color: rgb(250, 250, 250);
   width: 100vw;
   padding-bottom: 500px;
-}
 
+}
 </style>

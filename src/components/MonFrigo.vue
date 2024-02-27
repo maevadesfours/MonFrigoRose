@@ -1,20 +1,20 @@
 <template>
-    <div class="header">
-      <div class="title">
+    <div class="page">
+      <div class="titre">
         <h1>J'ai faim !</h1>
       </div>
     </div>
   </template>
     
   <style scoped>
-  .header {
+  .page {
     display: flex;
     justify-content: center;
     align-items: center;
 }
   
-  .title {
-    margin-top: 10vh;
+  .titre {
+    margin-top: 60vh;
     margin-left: 40vw;
     font-family: Calibri;
     font-size: small;

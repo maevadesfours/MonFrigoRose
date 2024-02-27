@@ -128,11 +128,11 @@ function handlerEnleverUn(aliment) {
     .catch((error) => console.log(error));
 }
   
-function handlerRecherche(mot){
+function handlerRecherche(nom){
     const urlPers = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits?search=";
     const fetchOptions = { method: "GET" };
 
-    fetch(urlPers+mot, fetchOptions)
+    fetch(urlPers+nom, fetchOptions)
     .then((response) => {
         return response.json();
     })
@@ -143,7 +143,7 @@ function handlerRecherche(mot){
         document.getElementById("rechercheAliment").innerHTML = ""
      
         document.getElementById("rechercheAliment").innerHTML += "<ul id='liste'>";
-      // on insère de l'html pour créer la liste de resultat de la recherche//
+      
       for (let a of AlimentsR) {
         //on reccupère les attributs des aliments et on les incère dans l'html //
         document.getElementById("rechercheAliment").innerHTML +=

@@ -13,7 +13,6 @@ const emit = defineEmits(["recherche"]);
     <input id="button" type="submit" value="Rechercher" />
     <div id="rechercheAliment"></div>
   </form>
-
 </template>
 
 <style scoped>
