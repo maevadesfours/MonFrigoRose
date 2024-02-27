@@ -22,7 +22,7 @@ function handlerSubmit(){
         <input class="ajoutAliment" type="text" v-model="nom" placeholder="Nouvel aliment"/> 
         <input class="ajoutQt" type="text" v-model="qte" placeholder="Quantité"/> 
       </div>
-      <input classe="button" type="submit" value = "Valider"/>
+      <input id="button" type="submit" value = "Valider"/>
     </form>
   </body>
 </template>
@@ -50,15 +50,15 @@ function handlerSubmit(){
   padding-top: 5px;
   width: 150px;
   border-radius: 8px;
+  border: 1px solid gray;
 }
 
-.button {
-  border: black;
-  padding: 10px;
-  background: green;
-  cursor: pointer;
+#button {
   align-self: center; 
-  border-radius: 10px;
+  background-color: gray;
+  border: 3px solid #000000;
+  width: 120px;
+  border-radius: 8px;
 }
 
 </style>

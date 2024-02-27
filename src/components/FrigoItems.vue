@@ -5,11 +5,11 @@ defineEmits(["supprimer", "ajouter", "enlever"])
 
 
 <template>
-        <div class="show">
+        <div class="afficher">
             {{ aliment.afficherNom() }}
             {{ aliment.afficherQte() }}<br>
         </div>
-        <div class="feat">
+        <div class="boutons">
             <button @click="$emit('supprimer', aliment.id)" class="button">Supprimer</button>
             <button @click="$emit('enlever', aliment)" class="button">Moins</button>
             <button @click="$emit('ajouter', aliment)" class="button">Plus</button>
@@ -17,19 +17,16 @@ defineEmits(["supprimer", "ajouter", "enlever"])
 </template>
 
 <style scoped>
-.show {
+.afficher {
     font-family: Arial, sans-serif;
     margin-top: 20px;
 }
 
-#delete, #more, #less {
+#supprimer, #ajouter, #enlever {
     width: 20px;
     height: 20px;
 }
 
-#delete:hover, #more:hover, #less:hover {
-  transform: scale(1.25); 
-}
 .button {
     border: none;
     background: none; 

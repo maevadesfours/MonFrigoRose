@@ -6,6 +6,7 @@ import Aliment from "../Aliments.js";
 import Recherche from "./recherche.vue";
 
 const mesAliments = reactive([])
+const AlimentsR = reactive([])
 
 // URL de l'API
 const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits";
@@ -127,44 +128,43 @@ function handlerEnleverUn(aliment) {
     .catch((error) => console.log(error));
 }
   
-
 function handlerRecherche(mot){
     const urlPers = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits?search=";
-    let fetchOptions = { method: "GET" };
-
+    const fetchOptions = { method: "GET" };
 
     fetch(urlPers+mot, fetchOptions)
     .then((response) => {
         return response.json();
     })
     .then((dataJSON) => {
-        let aliments = dataJSON.results; // les aliments sont le tableau "results"
-        let resHTML = ""; // variable pour contenir le html généré
+      AlimentsR.splice(0, AlimentsR.length);
+      dataJSON.forEach((v) => AlimentsR.push(new Aliment(v.id, v.nom, v.qte, v.photo)));
 
-
-         // boucle sur le tableau
-      for (let a of aliments) {
-        resHTML = resHTML + "<option>" + a.nom;
+        document.getElementById("rechercheAliment").innerHTML = ""
+     
+        document.getElementById("rechercheAliment").innerHTML += "<ul id='liste'>";
+      // on insère de l'html pour créer la liste de resultat de la recherche//
+      for (let a of AlimentsR) {
+        //on reccupère les attributs des aliments et on les incère dans l'html //
+        document.getElementById("rechercheAliment").innerHTML +=
+          "<li>" +
+          a.nom+
+          "</li>";
       }
-         // insérer le HTML dans la liste <ul></ul> du fichier index.html
-         document.getElementById("listeAliment").innerHTML = resHTML;
+      // on ferme la liste //
+      document.getElementById("rechercheAliment").innerHTML += "</ul>";
     })
-    .catch((error) => {
-            // gestion des erreurs
-            console.log(error);
-   });
+    .catch((error) => console.log(error));
   }
 
 </script>
 
 
-
-
 <template>
-  <div class="item">
+  <div class="lesFonctions">
   <FrigoForm @ajout="handlerAdd"></FrigoForm>
   <ul>  
-   
+  
       <FrigoItems
       v-for="aliment of mesAliments"
       :key="aliment.id"
@@ -172,25 +172,17 @@ function handlerRecherche(mot){
       @supprimer="handlerDelete"
       @ajouter="handlerAjouterUn"
       @enlever="handlerEnleverUn"/>
- 
   </ul>
 
-
   <Recherche @recherche="handlerRecherche"
-  :mesAliments="mesAliments"></Recherche>
+  :nomRecherche="nomRecherche"></Recherche>
  
 </div>
 </template>
 
 <style scoped>
-.frigoTitle {
-  position: absolute;
-  padding-top: 70px;
-  left: 20vw;
-}
 
-
-.item {
+.lesFonctions {
   margin-left: auto;
   margin-right: 30px;
   padding-top: 7px;
@@ -201,16 +193,6 @@ function handlerRecherche(mot){
   border-radius: 50px;
   text-align: center;
   padding-bottom: 20px;
-}
-
-.search {
-  position: sticky;
-  bottom: 0;
-  left: 10px;
-  width: 400px;
-  background: rgba(238, 130, 186, 0.025);
-  border-radius: 60px;
-  text-align: center;
 }
 
 </style>

@@ -36,7 +36,7 @@ export default class Aliment{
     }
 
     afficherNom() {
-      return `Aliment: ${this._nom} |`;
+      return `${this._nom}  --> `;
     }
   
     afficherQte() {
