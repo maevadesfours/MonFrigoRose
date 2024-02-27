@@ -10,29 +10,44 @@ defineEmits(["supprimer", "ajouter", "enlever"])
             {{ aliment.afficherQte() }}<br>
         </div>
         <div>
-            <button @click="$emit('supprimer', aliment.id)" class="button">Supprimer</button>
-            <button @click="$emit('enlever', aliment)" class="button">Moins</button>
-            <button @click="$emit('ajouter', aliment)" class="button">Plus</button>
+            
+            <button @click="$emit('enlever', aliment)" class="button">-</button>
+            <button @click="$emit('ajouter', aliment)" class="button">+</button>
+            <button @click="$emit('supprimer', aliment.id)" class="buttonS">Supprimer</button>
         </div>
+    
 </template>
 
 <style scoped>
 .afficher {
     font-family: Arial, sans-serif;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #supprimer, #ajouter, #enlever {
     width: 20px;
     height: 20px;
+   
 }
 
 .button {
-    border: none;
-    background: none; 
+    margin-left:15px;
+    border: black;
+    background: rgb(209, 208, 209); 
     cursor: pointer;
-    padding: 0; 
-    margin-left:8px;
+    border-radius: 20px;
+    border: 1px solid gray;
+    width: 20px;
+}
+
+.buttonS{
+    margin-left:15px;
+    border: black;
+    background: rgb(209, 208, 209); 
+    cursor: pointer;
+    border-radius: 20px;
+    border: 1px solid gray;
+    width: 100px;
 }
 </style>
 

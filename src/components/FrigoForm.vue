@@ -15,8 +15,8 @@ function handlerSubmit(){
 </script>
 
 <template>
-  <body class="saisie">
-    <h4>Ajouter dans mon frigo: </h4>
+  <div class="titre">
+    <h2>Ajouter dans mon frigo: </h2>
     <form @submit.prevent="handlerSubmit">
       <div class="entrer">
         <input class="ajoutAliment" type="text" v-model="nom" placeholder="Nouvel aliment"/> 
@@ -24,21 +24,21 @@ function handlerSubmit(){
       </div>
       <input id="button" type="submit" value = "Valider"/>
     </form>
-  </body>
+    <div class="titre">
+    <h3>Dans mon frigo, il y a : </h3>
+  </div>
+  </div>
 </template>
 
 
 <style scoped>
 
-.saisie{
-  margin: 20px;
+.titre{
+  margin-bottom: 0vh;
+    font-size: bottom;
+    color: black;
 }
 
-.saisieFormulaire{
-  padding-left: 60px;
-  display: flex;
-  justify-content: center;
-}
 
 .entrer{
   display: center;
@@ -55,10 +55,11 @@ function handlerSubmit(){
 
 #button {
   align-self: center; 
-  background-color: gray;
-  border: 3px solid #000000;
+  background-color: rgb(209, 208, 209);
+  border: 2px solid #000000;
   width: 120px;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin-bottom: 40px;
 }
 
 </style>

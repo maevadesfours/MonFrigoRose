@@ -110,7 +110,7 @@ function handlerEnleverUn(aliment) {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  if(aliment.qte==0){handlerDelete(id)}
+  if(aliment.qte==0){handlerDelete(aliment.id)}
   const fetchOptions = {
     method: "PUT",
     headers : myHeaders,
@@ -128,34 +128,35 @@ function handlerEnleverUn(aliment) {
     .catch((error) => console.log(error));
 }
   
-function handlerRecherche(nom){
-    const urlPers = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/9/produits?search=";
-    const fetchOptions = { method: "GET" };
+function handlerRecherche(motcle){
+  /* on récupère le mot clé nécessaire à la recherche */
+  const fetchOptions = { method: "GET" };
 
-    fetch(urlPers+nom, fetchOptions)
+  fetch(url + "?search=" + motcle, fetchOptions)
     .then((response) => {
-        return response.json();
+      return response.json();
     })
     .then((dataJSON) => {
-      AlimentsR.splice(0, AlimentsR.length);
-      dataJSON.forEach((v) => AlimentsR.push(new Aliment(v.id, v.nom, v.qte, v.photo)));
-
-        document.getElementById("rechercheAliment").innerHTML = ""
-     
-        document.getElementById("rechercheAliment").innerHTML += "<ul id='liste'>";
-      
-      for (let a of AlimentsR) {
-        //on reccupère les attributs des aliments et on les incère dans l'html //
-        document.getElementById("rechercheAliment").innerHTML +=
+      console.log(dataJSON);
+      let alimentsTrouves = dataJSON;
+      document.getElementById("recherche").innerHTML += "";
+      document.getElementById("recherche").innerHTML += "<ul>";
+      /* on insère de l'html pour créer une liste de livre correspondant au critère*/
+      for (let l of alimentsTrouves) {
+        /* pour chaque livres, on récupère ses attributs et on l'incère dans l'html */
+        document.getElementById("recherche").innerHTML +=
           "<li>" +
-          a.nom+
+          l.nom +
+          " qt " +
+          l.qte +
           "</li>";
       }
-      // on ferme la liste //
-      document.getElementById("rechercheAliment").innerHTML += "</ul>";
+      /* on oublie pas de fermer la liste */
+      document.getElementById("recherche").innerHTML += "</ul>";
     })
     .catch((error) => console.log(error));
-  }
+}
+
 
 </script>
 
@@ -164,7 +165,6 @@ function handlerRecherche(nom){
   <div class="lesFonctions">
   <FrigoForm @ajout="handlerAdd"></FrigoForm>
   <ul>  
-  
       <FrigoItems
       v-for="aliment of mesAliments"
       :key="aliment.id"
@@ -183,16 +183,18 @@ function handlerRecherche(nom){
 <style scoped>
 
 .lesFonctions {
-  margin-left: auto;
-  margin-right: 30px;
-  padding-top: 7px;
-  padding-bottom: 7px;
+  margin-left: 30px;
+  padding-top: 20px;
+
   width: 50%;
-  height: 100%;
-  background: rgba(238, 130, 186, 0.025);
+  height: 80%;
   border-radius: 50px;
   text-align: center;
-  padding-bottom: 20px;
+
+  
+  background-color: rgba(255, 255, 255, 0.8);
+  
+  border: 1px solid black;
 }
 
 </style>

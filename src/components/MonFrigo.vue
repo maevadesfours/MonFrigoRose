@@ -14,10 +14,11 @@
 }
   
   .titre {
-    margin-top: 60vh;
-    margin-left: 40vw;
+    margin-top: 10vh;
+    margin-left: 0vw;
     font-family: Calibri;
-    font-size: small;
+    font-size: medium;
     color: black;
+    
 }
   </style>
